@@ -1889,22 +1889,8 @@ type Ring
 
 ---
 
-### Stack
 
-```go
-
-
-
-
-
-
-
-
-
-
-
-```
-
+- Stack
 - Queue
 - ForwardList
 - Deque
