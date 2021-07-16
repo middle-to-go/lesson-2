@@ -160,19 +160,21 @@
 | **``**         | **string**           |
 | `nil`          | **nil**              |
 
-
+```
+%T	a Go-syntax representation of the type of the value
+```
 
 ```go
 func main() {
-  fmt.Printf("%v %t\n", 4, 4)
-  fmt.Printf("%v %t\n", -3, -3)
-  fmt.Printf("%v %t\n", 9.5, 9.5)
-  fmt.Printf("%v %t\n", 0.867 + 0.5i, 0.867 + 0.5i)
-  fmt.Printf("%v %t\n", true, true)
-  fmt.Printf("%v %t\n", false, false)
-  fmt.Printf("%v %t\n", "", "")
-  fmt.Printf("%v %t\n", 'a', 'a')
-  fmt.Printf("%v %t\n", nil, nil)
+  fmt.Printf("%v %T\n", 4, 4)
+  fmt.Printf("%v %T\n", -3, -3)
+  fmt.Printf("%v %T\n", 9.5, 9.5)
+  fmt.Printf("%v %T\n", 0.867 + 0.5i, 0.867 + 0.5i)
+  fmt.Printf("%v %T\n", true, true)
+  fmt.Printf("%v %T\n", false, false)
+  fmt.Printf("%v %T\n", "", "")
+  fmt.Printf("%v %T\n", 'a', 'a')
+  fmt.Printf("%v %T\n", nil, nil)
 }
 ```
 
@@ -472,6 +474,8 @@ func main() {
 | `&^`     | bit clear (AND NOT) | -//-                                      |
 | `<<`     | left shift          | integer << unsigned integer               |
 | `>>`     | right shift         | integer >> unsigned integer               |
+| `++`     | increment           | integer++                                 |
+| `--`     | decrement           | Integer--                                 |
 
 
 
@@ -749,6 +753,17 @@ switch level {
 }
 ```
 
+- вариант с проверкой в case
+
+```go
+switch {
+  case level == 0:
+  	return "DEBUG"
+  case level == 1:
+  	return "INFO"
+}
+```
+
 - вариант со списком случаев
 
 ```go
@@ -837,13 +852,13 @@ for {
 }
 ```
 
-- использование ключевого слова `break`
+- использование ключевого слова `break` или `continue`
 
 ```go
 for {
   // ...
   if condition {
-    break
+    break // continue
   }
   // ...
 }
@@ -932,7 +947,7 @@ func main() {
 - одиночноe
 
 ```go
-func Round(x float64) float64
+func Round(x float64) float64 {
   // ... you can try it at home 🏡
 }
 ```
@@ -1126,17 +1141,37 @@ const (
 )
 ```
 
-- с алиасом и `iota`
+- с алиасом, скипом и `iota`
 
 ```go
 type Level uint8
 
 const (
-  DebugLevel Level = iota // 0
-  InfoLevel               // 1
-  WarnLevel               // 2
-  ErrorLevel              // 3
+  _ 	Level =	 iota // 0
+  DebugLevel     		// 1
+  InfoLevel         // 2
+  WarnLevel         // 3
+  ErrorLevel        // 4
   // ...
+)
+```
+
+* задание битовой маски
+
+```go
+type Month intconst (
+  // 1 << 0 ==> 1
+  January Month = 1 << iota    February   // 1 << 1 ==> 2
+  March      // 1 << 2 ==> 4
+  April      // 1 << 3 ==> 8
+  May        // 1 << 4 ==> 16
+  June       // ...
+  July
+  August
+  September
+  October
+  November
+  December  
 )
 ```
 
@@ -1898,4 +1933,20 @@ type Ring
 
 
 [collections package](https://github.com/golang-collections/collections)
+
+-----
+
+## Что почитать
+
+1. [Аллкокация памяти в Go и её отслеживание](https://medium.com/eureka-engineering/understanding-allocations-in-go-stack-heap-memory-9a2631b5035d)
+
+2. [Ещё больше примеров про iota](https://blog.learngoprogramming.com/golang-const-type-enums-iota-bc4befd096d3)
+
+3. [Три пути сравнения слайсов](https://yourbasic.org/golang/compare-slices/)
+
+4. [Детали реализации map в Go](https://habr.com/ru/post/457728/)
+
+5. [Как работает for range](https://www.ardanlabs.com/blog/2017/06/for-range-semantics.html)
+
+   
 
